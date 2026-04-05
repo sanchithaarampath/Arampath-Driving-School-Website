@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arampath Driving School | Safe. Confident. Skilled Driving.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+            primaryDark: '#1d4ed8',
+            primaryLight: '#3b82f6',
+            primaryPale: '#eff6ff',
+            accent: '#f59e0b',
+          },
+          fontFamily: {
+            poppins: ['Poppins', 'sans-serif'],
+            inter: ['Inter', 'sans-serif'],
+            playfair: ['Playfair Display', 'serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #3b82f6;
+      --accent: #f59e0b;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #e2e8f0;
+      background: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* Poppins for nav, labels, badges, buttons */
+    .nav-link, button, .btn-green, .btn-outline-green, label, .badge-text {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Section headings use Poppins bold */
+    h1, h2, h3, h4 {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Playfair for hero brand name only */
+    .font-playfair {
+      font-family: 'Playfair Display', serif;
+    }
+
+    /* Navbar */
+    #navbar {
+      transition: box-shadow 0.3s, background 0.3s;
+    }
+    #navbar.scrolled {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      background: #0f172a !important;
+    }
+    .nav-link {
+      position: relative;
+      font-weight: 500;
+      color: #94a3b8;
+      transition: color 0.2s;
+      padding-bottom: 2px;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--primary);
+      transition: width 0.3s;
+    }
+    .nav-link:hover, .nav-link.active {
+      color: #fff;
+    }
+    .nav-link:hover::after, .nav-link.active::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero-gradient {
+      background: linear-gradient(135deg, #020617 0%, #0f172a 40%, #1e3a5f 100%);
+    }
+    .hero-overlay {
+      background: linear-gradient(to right, rgba(5,46,22,0.92) 0%, rgba(5,46,22,0.55) 100%);
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse-green {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50% { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
+    }
+    .animate-fade-in-up {
+      animation: fadeInUp 0.7s ease forwards;
+    }
+    .delay-100 { animation-delay: 0.1s; }
+    .delay-200 { animation-delay: 0.2s; }
+    .delay-300 { animation-delay: 0.3s; }
+    .delay-400 { animation-delay: 0.4s; }
+    .delay-500 { animation-delay: 0.5s; }
+
+    .whatsapp-btn {
+      animation: pulse-blue 2s infinite;
+    }
+
+    @keyframes pulse-blue {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(37,99,235,0.5); }
+      50% { box-shadow: 0 0 0 14px rgba(37,99,235,0); }
+    }
+
+    /* Cards */
+    .card-hover {
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card-hover:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 40px rgba(37,99,235,0.2);
+    }
+
+    /* Gallery Carousel */
+    .carousel-slide {
+      display: none;
+    }
+    .carousel-slide.active {
+      display: block;
+    }
+
+    /* Section divider */
+    .section-divider {
+      width: 64px;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--primary-light));
+      border-radius: 9999px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Toast */
+    #toast {
+      transition: opacity 0.4s, transform 0.4s;
+    }
+
+    /* Mobile menu */
+    #mobile-menu {
+      transition: max-height 0.35s ease, opacity 0.3s;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+    #mobile-menu.open {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    /* Service card icon */
+    .service-icon-wrap {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    /* Star rating */
+    .stars { color: var(--accent); }
+
+    /* Form input focus */
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.2);
+    }
+
+    /* Green btn */
+    .btn-green {
+      background: linear-gradient(135deg, #16a34a, #15803d);
+      color: white;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-green:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37,99,235,0.4);
+    }
+    .btn-outline-green {
+      border: 2px solid #22c55e;
+      color: #22c55e;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .btn-outline-green:hover {
+      background: #22c55e;
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Location card image */
+    .location-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    /* Iframe container */
+    .map-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 0 0 12px 12px;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+  </style>
+</head>
+<body class="bg-white">
+
+  <!-- ======================== NAVBAR ======================== -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-slate-900 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="flex items-center justify-between h-16">
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 rounded-full overflow-hidden shadow-lg  border-primary group-hover:scale-105 transition duration-300">
+  <img src="logo.jpeg" alt="Arampath Driving School Logo" 
+       class="w-full h-full object-cover">
+</div>
+          <div>
+            <div class="font-playfair font-bold text-red-600 text-base leading-tight">
+  Arampath
+</div>
+            <div class="text-xs text-white-500 font-medium leading-tight">Driving School</div>
+          </div>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-7">
+          <a href="#home" class="nav-link active text-sm">Home</a>
+          <a href="#about" class="nav-link text-sm">About</a>
+          <a href="#locations" class="nav-link text-sm">Locations</a>
+          <a href="#services" class="nav-link text-sm">Services</a>
+          <a href="#gallery" class="nav-link text-sm">Gallery</a>
+          <a href="#testimonials" class="nav-link text-sm">Testimonials</a>
+          <a href="#vision" class="nav-link text-sm">Vision</a>
+          <a href="#contact" class="nav-link text-sm">Contact</a>
+          <a href="tel:0777280002" class="btn-green px-4 py-2 rounded-full text-sm font-semibold">
+            <i class="fas fa-phone mr-1"></i> Call Now
+          </a>
+        </div>
+
+        <!-- Hamburger -->
+        <button id="hamburger" aria-label="Toggle mobile menu" class="md:hidden flex flex-col gap-1.5 p-2">
+          <span class="block w-6 h-0.5 bg-slate-300 transition-all" id="ham1"></span>
+          <span class="block w-6 h-0.5 bg-slate-300 transition-all" id="ham2"></span>
+          <span class="block w-6 h-0.5 bg-slate-300 transition-all" id="ham3"></span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden bg-slate-900 border-t border-slate-800 px-4 py-2">
+      <a href="#home" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">Home</a>
+      <a href="#about" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">About</a>
+      <a href="#locations" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">Locations</a>
+      <a href="#services" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">Services</a>
+      <a href="#gallery" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">Gallery</a>
+      <a href="#testimonials" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">Testimonials</a>
+      <a href="#vision" class="block py-3 text-sm font-medium text-slate-400 border-b border-slate-800 hover:text-blue-400">Vision</a>
+      <a href="#contact" class="block py-3 text-sm font-medium text-slate-400 hover:text-blue-400">Contact</a>
+    </div>
+  </nav>
+
+  <!-- ======================== HERO ======================== -->
+  <section id="home" class="relative min-h-screen flex items-center hero-gradient overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0">
+      <img src="Background.jpg" alt="Driving background" class="w-full h-full object-cover opacity-20" />
+    </div>
+    <!-- Decorative circles -->
+    <div class="absolute top-20 right-10 w-72 h-72 bg-primary-light opacity-10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-10 left-0 w-96 h-96 bg-green-900 opacity-20 rounded-full blur-3xl"></div>
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 pt-24 pb-16">
+      <div class="max-w-3xl">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2 bg-white bg-opacity-10 border border-white border-opacity-20 rounded-full px-4 py-1.5 mb-6 text-green-200 text-sm font-medium animate-fade-in-up">
+          <i class="fas fa-award text-accent"></i>
+          Trusted since 2000 · 26+ Years of Excellence
+        </div>
+
+        <h1 class="font-playfair font-black text-white text-4xl sm:text-5xl md:text-7xl leading-tight mb-4 animate-fade-in-up delay-100">
+          Arampath<br/><span class="text-primary-light">Driving School</span>
+        </h1>
+
+        <p class="text-green-100 text-lg sm:text-xl font-light mb-3 animate-fade-in-up delay-200">
+          Safe. Confident. Skilled Driving.
+        </p>
+        <p class="text-green-200 text-base sm:text-lg mb-8 max-w-xl animate-fade-in-up delay-300">
+          Learn to drive with confidence and safety. Join thousands of successful drivers trained by our qualified instructors across Sri Lanka.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap gap-4 mb-12 animate-fade-in-up delay-400">
+<a href="tel:0777280002"
+   class="bg-red-600 hover:bg-red-700 text-white px-7 py-3.5 rounded-full font-semibold text-base flex items-center gap-2 shadow-lg">            <i class="fas fa-phone"></i> Call Now
+          </a>
+          <a href="https://wa.me/94703399000" target="_blank" class="btn-outline-green px-7 py-3.5 rounded-full font-semibold text-base flex items-center gap-2">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+
+       <!-- Highlight Badges -->
+<div class="flex justify-between gap-2 
+            animate-fade-in-up delay-500">
+
+
+              <div class="flex-1 h-24 flex flex-col justify-center items-center
+              bg-white bg-opacity-10 backdrop-blur 
+              border border-white border-opacity-15 
+              rounded-xl text-center">
+    <div class="text-l font-black text-accent font-playfair">DS 320-796</div>
+    <div class="text-green-200 text-[10px] font-medium mt-1">Registered Driving School</div>
+  </div>
+
+
+  <!-- Box 1 -->
+  <div class="flex-1 h-24 flex flex-col justify-center items-center
+              bg-white bg-opacity-10 backdrop-blur 
+              border border-white border-opacity-15 
+              rounded-xl text-center">
+    <div class="text-xl font-black text-accent font-playfair">26+</div>
+    <div class="text-green-200 text-[10px] font-medium mt-1">Years Experience</div>
+  </div>
+
+  <!-- Box 2 -->
+  <div class="flex-1 h-24 flex flex-col justify-center items-center
+              bg-white bg-opacity-10 backdrop-blur 
+              border border-white border-opacity-15 
+              rounded-xl text-center">
+    <div class="text-xl font-black text-accent font-playfair">
+      <i class="fas fa-user-tie text-lg"></i>
+    </div>
+    <div class="text-green-200 text-[10px] font-medium mt-1">Qualified</div>
+  </div>
+
+  <!-- Box 3 -->
+  <div class="flex-1 h-24 flex flex-col justify-center items-center
+              bg-white bg-opacity-10 backdrop-blur 
+              border border-white border-opacity-15 
+              rounded-xl text-center">
+    <div class="text-xl font-black text-accent font-playfair">3</div>
+    <div class="text-green-200 text-[10px] font-medium mt-1">Locations</div>
+  </div>
+
+</div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white opacity-50 animate-bounce">
+      <i class="fas fa-chevron-down text-xl"></i>
+    </div>
+  </section>
+
+  <!-- ======================== ABOUT ======================== -->
+  <section id="about" class="py-20 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="section-divider"></div>
+        <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">About Us</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">Sri Lanka's trusted driving school — empowering drivers for over two decades.</p>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">දශක දෙකකට අධික කාලයක් පුරාවට දිවයිනේ විෂිශ්ටතම රියදුරන් බිහිකල   රියදුරු පාසල</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
+        <!-- Image -->
+        <div class="relative">
+          <div class="absolute -top-4 -left-4 w-full h-full border-2 border-primary rounded-2xl opacity-20"></div>
+          <img src="logo.jpeg" alt="Driving school instructor" class="w-full h-80 sm:h-96 object-cover rounded-2xl shadow-xl relative" />
+          <!-- Floating badge -->
+          <div class="absolute bottom-6 -right-4 bg-primary text-white rounded-2xl px-5 py-3 shadow-lg text-center">
+            <div class="text-3xl font-black font-playfair">26+</div>
+            <div class="text-xs font-medium opacity-90">Years of Trust</div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div>
+          <h3 class="font-playfair font-bold text-2xl sm:text-3xl text-white mb-5">
+            Driving Excellence Since <span class="text-blue-400">2000</span>
+          </h3>
+          <p class="text-slate-400 mb-4 leading-relaxed">
+            Arampath Driving School has been shaping confident, safe drivers for over <strong class="text-slate-200">26 years</strong>. Founded with a commitment to road safety and skill-based training, we've grown into one of Sri Lanka's most respected driving schools.
+          </p>
+          <p class="text-slate-400 mb-6 leading-relaxed">
+            We operate <strong class="text-slate-200">3 branches</strong>: Narammala, Giriulla, and our Dambadeniya training center — all staffed with <strong class="text-slate-200">well trained qualified instructors</strong> dedicated to your success behind the wheel.
+          </p>
+
+          <!-- Feature Cards -->
+          <div class="grid grid-cols-2 gap-4">
+            <div class="card-hover bg-slate-800 rounded-xl p-4 flex items-start gap-3 border border-slate-700">
+              <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-user-graduate text-white text-sm"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm">Experienced Trainers</div>
+                <div class="text-slate-400 text-xs mt-0.5">Qualified & certified instructors</div>
+              </div>
+            </div>
+            <div class="card-hover bg-slate-800 rounded-xl p-4 flex items-start gap-3 border border-slate-700">
+              <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-calendar-check text-white text-sm"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm">Flexible Scheduling</div>
+                <div class="text-slate-400 text-xs mt-0.5">Lessons to fit your timetable</div>
+              </div>
+            </div>
+            <div class="card-hover bg-slate-800 rounded-xl p-4 flex items-start gap-3 border border-slate-700">
+              <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-car text-white text-sm"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm">Modern Vehicles</div>
+                <div class="text-slate-400 text-xs mt-0.5">Well-maintained training cars with both AC and non Ac categories
+            
+                </div>
+              </div>
+            </div>
+            
+  </section>
+
+  <!-- ======================== LOCATIONS ======================== -->
+  <section id="locations" class="py-20 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="section-divider"></div>
+        <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">Our Locations</h2>
+        <p class="text-slate-400 mt-3">Find us across three convenient locations in the North Western Province.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Narammala -->
+        <div class="card-hover bg-slate-800 rounded-2xl shadow-md overflow-hidden border border-slate-700">
+          <div class="relative">
+            <img src="narammala.jpeg" alt="Narammala Branch" class="location-img" />
+            <div class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">DS796</div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-lg mb-1">Narammala Branch</h3>
+            <p class="text-slate-400 text-sm mb-1"><i class="fas fa-map-marker-alt text-primary mr-2"></i>Negambo Road, Narammala</p>
+            <p class="text-slate-500 text-xs mb-4">Registration No: DS796</p>
+            <a href="https://share.google/Jg7DjO0QWvgvv9mQP" target="_blank" class="btn-green w-full text-center py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 mb-4">
+              <i class="fas fa-map"></i> View on Google Maps
+            </a>
+          </div>
+          <div class="map-container">
+            <iframe src="https://maps.google.com/maps?q=Narammala,+Sri+Lanka&output=embed" allowfullscreen loading="lazy" title="Narammala Map"></iframe>
+          </div>
+        </div>
+
+        <!-- Giriulla -->
+        <div class="card-hover bg-slate-800 rounded-2xl shadow-md overflow-hidden border border-slate-700">
+          <div class="relative">
+            <img src="Giriulla.jpeg" alt="Giriulla Branch" class="location-img" />
+            <div class="absolute top-3 left-3 bg-primary text-white text-xs font-semibold px-3 py-1 rounded-full">DS320</div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-lg mb-1">Giriulla Branch</h3>
+            <p class="text-slate-400 text-sm mb-1"><i class="fas fa-map-marker-alt text-primary mr-2"></i>Negambo Road, Giriulla</p>
+            <p class="text-slate-500 text-xs mb-4">Registration No: DS320</p>
+            <a href="https://share.google/GyfikhzLTaLV7C38h" target="_blank" class="btn-green w-full text-center py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 mb-4">
+              <i class="fas fa-map"></i> View on Google Maps
+            </a>
+          </div>
+          <div class="map-container">
+            <iframe src="https://maps.google.com/maps?q=Giriulla,+Sri+Lanka&output=embed" allowfullscreen loading="lazy" title="Giriulla Map"></iframe>
+          </div>
+        </div>
+
+        <!-- Dambadeniya -->
+        <div class="card-hover bg-slate-800 rounded-2xl shadow-md overflow-hidden border border-slate-700">
+          <div class="relative">
+            <img src="yard.jpeg" alt="Dambadeniya Training Center" class="location-img" />
+            <div class="absolute top-3 left-3 bg-accent text-gray-900 text-xs font-semibold px-3 py-1 rounded-full">Training Center</div>
+          </div>
+          <div class="p-5">
+            <h3 class="font-semibold text-white text-lg mb-1">Dambadeniya Training Center</h3>
+            <p class="text-slate-400 text-sm mb-1"><i class="fas fa-map-marker-alt text-primary mr-2"></i>Negombo Road, Dambadeniya</p>
+            <p class="text-slate-500 text-xs mb-4">Vehicle Training Yard</p>
+            <a href="https://share.google/8yOlw7gtGpLuIcTpW" target="_blank" class="btn-green w-full text-center py-2.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2 mb-4">
+              <i class="fas fa-map"></i> View on Google Maps
+            </a>
+          </div>
+          <div class="map-container">
+            <iframe src="https://maps.google.com/maps?q=Dambadeniya,+Sri+Lanka&output=embed" allowfullscreen loading="lazy" title="Dambadeniya Map"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== SERVICES ======================== -->
+  <section id="services" class="py-20 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="section-divider"></div>
+        <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">Our Services</h2>
+        <p class="text-slate-400 mt-3 max-w-xl mx-auto">Everything you need to become a confident, licensed driver — all in one place.</p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7">
+        <!-- Service 1 -->
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700">
+          <div class="service-icon-wrap">
+            <i class="fas fa-box-open text-primary text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Easy Packages</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Affordable, all-inclusive driving packages tailored to your skill level and schedule. Get started with minimal hassle.</p>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700">
+          <div class="service-icon-wrap">
+            <i class="fas fa-credit-card text-primary text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Easy Installments</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Easy installment payments with minimal downpayments — so money is never a barrier to learning to drive safely.</p>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700">
+          <div class="service-icon-wrap">
+            <i class="fas fa-chalkboard-teacher text-primary text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Tutorial Plus Lessons</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Comprehensive tutorial sessions combined with practical lessons for a complete learning experience on and off road.</p>
+        </div>
+
+        <!-- Service 4 -->
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700">
+          <div class="service-icon-wrap">
+            <i class="fas fa-book text-primary text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Free Driver Manual Book</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Every student receives a free driver manual book — your essential guide to Sri Lankan road rules and regulations.</p>
+        </div>
+
+        <!-- Service 5 -->
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700">
+          <div class="service-icon-wrap">
+            <i class="fas fa-file-alt text-primary text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Exam Target Papers</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Practice with our specially curated exam target papers designed to maximize your chances of passing the driving test first time.</p>
+        </div>
+
+        <!-- Service 6 - CTA -->
+        <div class="card-hover bg-primary rounded-2xl p-7 text-white flex flex-col justify-between">
+          <div>
+            <div class="w-14 h-14 bg-white bg-opacity-20 rounded-2xl flex items-center justify-center mb-4">
+              <i class="fas fa-headset text-white text-2xl"></i>
+            </div>
+            <h3 class="font-semibold text-xl mb-2">Ready to Start?</h3>
+            <p class="text-green-100 text-sm leading-relaxed mb-5">Contact us today and get enrolled in the right package for you.</p>
+          </div>
+          <a href="https://wa.me/94703399000" target="_blank" class="bg-white text-primary font-semibold text-sm py-3 px-5 rounded-xl text-center hover:bg-green-50 transition">
+            <i class="fab fa-whatsapp mr-2"></i>Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+ <!-- ======================== GALLERY ======================== -->
+<section id="gallery" class="py-20 bg-slate-950">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6">
+    <div class="text-center mb-14">
+      <div class="section-divider"></div>
+      <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">Gallery</h2>
+      <p class="text-slate-400 mt-3">A glimpse into life at Arampath Driving School.</p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="relative rounded-2xl overflow-hidden shadow-2xl bg-gray-900" id="carousel" style="cursor:pointer;">
+      
+      <!-- 3:2 Responsive Image Area -->
+      <div class="relative aspect-[3/2] w-full">
+        <div class="carousel-slide active absolute inset-0">
+          <img src="car.jpeg" alt="Gallery 1" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y1.jpeg" alt="Gallery 2" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y2.jpeg" alt="Gallery 3" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y3.jpeg" alt="Gallery 4" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y4.jpeg" alt="Gallery 5" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y5.jpeg" alt="Gallery 6" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y6.jpeg" alt="Gallery 7" class="w-full h-full object-cover" />
+        </div>
+        <div class="carousel-slide absolute inset-0">
+          <img src="Y7.jpeg" alt="Gallery 8" class="w-full h-full object-cover" />
+        </div>
+
+        <!-- Overlay gradient -->
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none"></div>
+      </div>
+
+      <!-- Prev / Next -->
+      <button id="carousel-prev" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow transition z-10" aria-label="Previous slide">
+        <i class="fas fa-chevron-left text-gray-700"></i>
+      </button>
+      <button id="carousel-next" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/80 hover:bg-white rounded-full flex items-center justify-center shadow transition z-10" aria-label="Next slide">
+        <i class="fas fa-chevron-right text-gray-700"></i>
+      </button>
+
+      <!-- Dots -->
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 z-10" id="carousel-dots"></div>
+    </div>
+  </div>
+</section>
+
+  <!-- ======================== TESTIMONIALS ======================== 
+  <section id="testimonials" class="py-20 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="section-divider"></div>
+        <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">Testimonials</h2>
+        <p class="text-slate-400 mt-3">What our successful students say about us.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+        <!-- T1 --
+        <div class="card-hover bg-slate-800 rounded-2xl p-6 border border-slate-700">
+          <div class="stars mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm mb-5 leading-relaxed italic">"I passed my driving test on the first attempt thanks to the excellent training at Arampath. The instructors are patient, knowledgeable, and made me feel completely confident behind the wheel."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">KP</div>
+            <div>
+              <div class="font-semibold text-white text-sm">Kasun Perera</div>
+              <div class="text-slate-500 text-xs">Narammala Branch</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T2 --
+        <div class="card-hover bg-slate-800 rounded-2xl p-6 border border-slate-700">
+          <div class="stars mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm mb-5 leading-relaxed italic">"The flexible schedule really helped me balance my studies with driving lessons. The free manual book and exam papers gave me the edge I needed. Highly recommend Arampath!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">SA</div>
+            <div>
+              <div class="font-semibold text-white text-sm">Sanduni Abeykoon</div>
+              <div class="text-slate-500 text-xs">Giriulla Branch</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T3 --
+        <div class="card-hover bg-slate-800 rounded-2xl p-6 border border-blue-900">
+          <div class="stars mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm mb-5 leading-relaxed italic">"26 years of experience shows in every lesson. My instructor was calm and encouraging even when I made mistakes. The installment plan made it affordable too. Thank you Arampath!"</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">RF</div>
+            <div>
+              <div class="font-semibold text-white text-sm">Ranil Fernando</div>
+              <div class="text-slate-500 text-xs">Dambadeniya Center</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T4 --
+        <div class="card-hover bg-slate-800 rounded-2xl p-6 border border-slate-700">
+          <div class="stars mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm mb-5 leading-relaxed italic">"The tutorial plus lessons format is brilliant. I learned all the theory in class and immediately practised it on the road. The instructors at Giriulla are absolutely top-notch."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">NW</div>
+            <div>
+              <div class="font-semibold text-white text-sm">Nimasha Wickramasinghe</div>
+              <div class="text-slate-500 text-xs">Giriulla Branch</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- T5 --
+        <div class="card-hover bg-slate-800 rounded-2xl p-6 border border-slate-700">
+          <div class="stars mb-3">
+            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+          </div>
+          <p class="text-slate-300 text-sm mb-5 leading-relaxed italic">"I was nervous about driving but Arampath's qualified instructors built my confidence step by step. The exam target papers were incredibly useful. Passed first try! 10/10 driving school."</p>
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">DM</div>
+            <div>
+              <div class="font-semibold text-white text-sm">Dulani Mendis</div>
+              <div class="text-slate-500 text-xs">Narammala Branch</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Card --
+        <div class="bg-primary rounded-2xl p-6 text-white flex flex-col justify-center">
+          <div class="text-center">
+            <div class="text-5xl font-black font-playfair mb-1">98%</div>
+            <div class="text-green-200 text-sm mb-6">First-time pass rate</div>
+            <div class="grid grid-cols-2 gap-4 text-center">
+              <div>
+                <div class="text-3xl font-black font-playfair">26+</div>
+                <div class="text-green-200 text-xs mt-0.5">Years Experience</div>
+              </div>
+              <div>
+                <div class="text-3xl font-black font-playfair">3</div>
+                <div class="text-green-200 text-xs mt-0.5">Locations</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== OUR VISION ======================== -->
+  <section id="vision" class="py-20 bg-slate-900 relative overflow-hidden">
+    <!-- Background decoration -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-blue-600 opacity-5 rounded-full blur-3xl"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 relative">
+      <div class="text-center mb-14">
+        <div class="section-divider"></div>
+        <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">Our Vision</h2>
+        <p class="text-slate-400 mt-3">What drives us forward every single day.</p>
+      </div>
+
+      <!-- Central vision statement -->
+      <div class="max-w-3xl mx-auto text-center mb-16">
+        <div class="relative inline-block mb-6">
+          <div class="w-20 h-20 bg-primary bg-opacity-20 border border-primary border-opacity-30 rounded-full flex items-center justify-center mx-auto">
+            <i class="fas fa-eye text-primary text-3xl"></i>
+          </div>
+        </div>
+
+ 
+                <blockquote class="text-2xl sm:text-3xl font-playfair font-bold text-white leading-snug mb-4">
+          "දක්ෂ විනයගරුක රියදුරන් බිහිකිරීම අපගේ පරමාර්ථයයි!"
+        </blockquote><br>
+        <blockquote class="text-2xl sm:text-3xl font-playfair font-bold text-white leading-snug mb-4">
+          "Our goal is to produce competent and discipline drivers."
+        </blockquote><br>
+  <blockquote class="text-2xl sm:text-3xl font-playfair font-bold text-white leading-snug mb-4">
+          "திறமையான ஒழுக்கத்துடன் கூடிய ஓட்டுநர்களை உருவாக்குவது எங்கள் முக்கிய குறிக்கோளாகும்!"
+        </blockquote>
+
+
+        <p class="text-slate-400 text-base leading-relaxed">
+          At Arampath Driving School, we believe every driver has the potential to be safe, skilled, and responsible on the road. Our vision is to make Sri Lanka's roads safer — one driver at a time.
+        </p>
+      </div>
+
+      <!-- Vision pillars -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-7">
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700 text-center">
+          <div class="w-14 h-14 bg-blue-900 border border-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-shield-alt text-blue-400 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Competence</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Training drivers with the technical skills, knowledge, and confidence to handle any situation on the road safely.</p>
+        </div>
+
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700 text-center">
+          <div class="w-14 h-14 bg-blue-900 border border-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-balance-scale text-blue-400 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Discipline</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Instilling respect for traffic laws, fellow road users, and the responsibility that comes with being behind the wheel.</p>
+        </div>
+
+        <div class="card-hover bg-slate-800 rounded-2xl p-7 border border-slate-700 text-center">
+          <div class="w-14 h-14 bg-blue-900 border border-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <i class="fas fa-road text-blue-400 text-2xl"></i>
+          </div>
+          <h3 class="font-semibold text-white text-lg mb-2">Safer Roads</h3>
+          <p class="text-slate-400 text-sm leading-relaxed">Contributing to a safer Sri Lanka by producing graduates who are not just licensed — but truly road-ready drivers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== CONTACT ======================== -->
+  <section id="contact" class="py-20 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="text-center mb-14">
+        <div class="section-divider"></div>
+        <h2 class="font-playfair font-bold text-3xl sm:text-4xl text-white">Contact Us</h2>
+        <p class="text-slate-400 mt-3">We're here to help. Get in touch today.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Contact Info -->
+        <div>
+          <div class="bg-slate-800 rounded-2xl border border-slate-700 p-8">
+            <h3 class="font-semibold text-white text-xl mb-6">Get in Touch</h3>
+
+            <!-- Opening Hours -->
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-11 h-11 bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-clock text-primary"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm mb-0.5">Opening Hours</div>
+                <div class="text-slate-400 text-sm">Every day except <strong class="text-slate-200">FRIDAY</strong></div>
+                <div class="text-slate-400 text-sm">8.00 am – 5.30 pm</div>
+              </div>
+            </div>
+
+            <!-- Phone -->
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-11 h-11 bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-phone text-primary"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm mb-1">Phone Numbers</div>
+                <a href="tel:0777280002" class="block text-slate-400 text-sm hover:text-blue-400">0777 280 002</a>
+                <a href="tel:0707280002" class="block text-slate-400 text-sm hover:text-blue-400">0707 280 002</a>
+                <a href="tel:0777951747" class="block text-slate-400 text-sm hover:text-blue-400">0777 951 747</a>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex items-start gap-4 mb-6">
+              <div class="w-11 h-11 bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-envelope text-primary"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm mb-0.5">Email</div>
+                <a href="/cdn-cgi/l/email-protection#b1d0c3d0dcc1d0c5d9d5c3d8c7d8dfd6c2d2d9dededdf1d6dcd0d8dd9fd2dedc" class="text-slate-400 text-sm hover:text-blue-400 break-all"><span class="__cf_email__" data-cfemail="a4c5d6c5c9d4c5d0ccc0d6cdd2cdcac3d7c7cccbcbc8e4c3c9c5cdc88ac7cbc9">[email&#160;protected]</span></a>
+              </div>
+            </div>
+
+            <!-- WhatsApp -->
+            <div class="flex items-start gap-4">
+              <div class="w-11 h-11 bg-slate-700 rounded-xl flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-whatsapp text-primary"></i>
+              </div>
+              <div>
+                <div class="font-semibold text-white text-sm mb-2">WhatsApp</div>
+                <a href="https://wa.me/94703399000" target="_blank" class="btn-green px-5 py-2.5 rounded-xl text-sm font-semibold inline-flex items-center gap-2">
+                  <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form -->
+        <div>
+          <div class="bg-slate-800 rounded-2xl border border-slate-700 p-8">
+            <h3 class="font-semibold text-white text-xl mb-6">Send a Message</h3>
+            <div id="contact-form">
+              <div class="mb-5">
+                <label class="block text-sm font-medium text-slate-300 mb-2" for="name">Full Name <span class="text-red-400">*</span></label>
+                <input id="name" type="text" placeholder="Your full name" class="form-input w-full border border-slate-600 rounded-xl px-4 py-3 text-sm text-white transition bg-slate-700 placeholder-slate-500" />
+              </div>
+              <div class="mb-5">
+                <label class="block text-sm font-medium text-slate-300 mb-2" for="phone">Phone Number <span class="text-red-400">*</span></label>
+                <input id="phone" type="tel" placeholder="07X XXX XXXX" class="form-input w-full border border-slate-600 rounded-xl px-4 py-3 text-sm text-white transition bg-slate-700 placeholder-slate-500" />
+              </div>
+              <div class="mb-6">
+                <label class="block text-sm font-medium text-slate-300 mb-2" for="message">Message <span class="text-red-400">*</span></label>
+                <textarea id="message" rows="4" placeholder="Your message..." class="form-input w-full border border-slate-600 rounded-xl px-4 py-3 text-sm text-white transition bg-slate-700 placeholder-slate-500 resize-none"></textarea>
+              </div>
+              <button id="submit-btn" type="button" class="btn-green w-full py-3.5 rounded-xl text-sm font-semibold flex items-center justify-center gap-2">
+                <i class="fas fa-paper-plane"></i> Send Message
+              </button>
+              <div id="form-error" class="mt-3 text-red-400 text-sm hidden"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="bg-slate-950 text-gray-300 pt-14 pb-6 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-10">
+        <!-- Brand -->
+        <div class="sm:col-span-2 lg:col-span-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+              <i class="fas fa-car text-white"></i>
+            </div>
+            <div>
+              
+              <div class="font-playfair font-bold text-white text-base leading-tight">Arampath</div>
+              <div class="text-xs text-gray-400 leading-tight">Driving School</div>
+            </div>
+          </div>
+          <p class="text-gray-400 text-sm leading-relaxed mb-4">Safe. Confident. Skilled Driving. Trusted driving school in Sri Lanka since 2000 with 26+ years of experience.</p>
+          <a href="https://wa.me/94703399000" target="_blank" class="inline-flex items-center gap-2 bg-primary text-white text-sm font-semibold px-4 py-2 rounded-full hover:bg-primaryDark transition">
+            <i class="fab fa-whatsapp"></i> WhatsApp
+          </a>
+        </div>
+
+        <!-- Quick Links -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="#home" class="text-slate-400 text-sm hover:text-blue-400 transition">Home</a></li>
+            <li><a href="#about" class="text-slate-400 text-sm hover:text-blue-400 transition">About Us</a></li>
+            <li><a href="#locations" class="text-slate-400 text-sm hover:text-blue-400 transition">Locations</a></li>
+            <li><a href="#services" class="text-slate-400 text-sm hover:text-blue-400 transition">Services</a></li>
+            <li><a href="#gallery" class="text-slate-400 text-sm hover:text-blue-400 transition">Gallery</a></li>
+            <li><a href="#vision" class="text-slate-400 text-sm hover:text-blue-400 transition">Our Vision</a></li>
+            <li><a href="#contact" class="text-slate-400 text-sm hover:text-blue-400 transition">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Locations -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Our Branches</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li class="flex items-start gap-2"><i class="fas fa-map-marker-alt text-primary mt-0.5"></i>Negombo Rd, Narammala (DS796)</li>
+            <li class="flex items-start gap-2"><i class="fas fa-map-marker-alt text-primary mt-0.5"></i>Negombo Rd, Giriulla (DS320)</li>
+            <li class="flex items-start gap-2"><i class="fas fa-map-marker-alt text-primary mt-0.5"></i>Negombo Rd, Dambadeniya Training Yard</li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-4">Contact</h4>
+          <ul class="space-y-2 text-sm text-gray-400">
+            <li class="flex items-center gap-2"><i class="fas fa-phone text-primary"></i><a href="tel:0777280002" class="hover:text-primary transition">0777 280 002</a></li>
+            <li class="flex items-center gap-2"><i class="fas fa-phone text-primary"></i><a href="tel:0707280002" class="hover:text-primary transition">0707 280 002</a></li>
+            <li class="flex items-center gap-2"><i class="fas fa-phone text-primary"></i><a href="tel:0777951747" class="hover:text-primary transition">0777 951 747</a></li>
+            <li class="flex items-start gap-2 mt-2"><i class="fas fa-envelope text-primary mt-0.5"></i><a href="/cdn-cgi/l/email-protection#4b2a392a263b2a3f232f39223d22252c3828232424270b2c262a222765282426" class="hover:text-primary transition break-all text-xs"><span class="__cf_email__" data-cfemail="59382b383429382d313d2b302f30373e2a3a31363635193e34383035773a3634">[email&#160;protected]</span></a></li>
+            <li class="flex items-center gap-2 mt-2"><i class="fas fa-clock text-primary"></i>Mon–Thu, Sat–Sun: 8am–5:30pm</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-slate-800 pt-6 text-center">
+        <p class="text-gray-500 text-sm">© <span id="year"></span> Arampath Driving School. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================== WhatsApp Floating Button ======================== -->
+  <a href="https://wa.me/94703399000" target="_blank" aria-label="Chat on WhatsApp"
+     class="whatsapp-btn fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center shadow-xl transition-transform hover:scale-110">
+    <i class="fab fa-whatsapp text-2xl"></i>
+  </a>
+
+  <!-- ======================== Toast ======================== -->
+  <div id="toast" class="fixed bottom-24 right-6 z-50 bg-gray-900 text-white text-sm px-5 py-3.5 rounded-xl shadow-xl flex items-center gap-3 opacity-0 -translate-y-2 pointer-events-none">
+    <i class="fas fa-check-circle text-primary"></i>
+    <span>Message sent! We'll contact you soon.</span>
+  </div>
+
+  <!-- ======================== JAVASCRIPT ======================== -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ---- Navbar scroll ----
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // ---- Active nav link on scroll ----
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    // ---- Hamburger ----
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const ham1 = document.getElementById('ham1');
+    const ham2 = document.getElementById('ham2');
+    const ham3 = document.getElementById('ham3');
+    let menuOpen = false;
+    hamburger.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      ham2.style.opacity = menuOpen ? '0' : '1';
+      ham1.style.transform = menuOpen ? 'rotate(45deg) translate(5px,5px)' : '';
+      ham3.style.transform = menuOpen ? 'rotate(-45deg) translate(5px,-5px)' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        menuOpen = false;
+        mobileMenu.classList.remove('open');
+        ham2.style.opacity = '1';
+        ham1.style.transform = '';
+        ham3.style.transform = '';
+      });
+    });
+
+    // ---- Carousel ----
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dotsContainer = document.getElementById('carousel-dots');
+    let currentSlide = 0;
+    let autoplay;
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const dot = document.createElement('button');
+      dot.className = `w-2.5 h-2.5 rounded-full transition-all ${i === 0 ? 'bg-white scale-125' : 'bg-white opacity-50'}`;
+      dot.setAttribute('aria-label', `Slide ${i + 1}`);
+      dot.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    function updateDots() {
+      dotsContainer.querySelectorAll('button').forEach((d, i) => {
+        d.className = `w-2.5 h-2.5 rounded-full transition-all ${i === currentSlide ? 'bg-white scale-125 opacity-100' : 'bg-white opacity-50'}`;
+      });
+    }
+
+    function goTo(n) {
+      slides[currentSlide].classList.remove('active');
+      currentSlide = (n + slides.length) % slides.length;
+      slides[currentSlide].classList.add('active');
+      updateDots();
+    }
+
+    document.getElementById('carousel-prev').addEventListener('click', () => goTo(currentSlide - 1));
+    document.getElementById('carousel-next').addEventListener('click', () => goTo(currentSlide + 1));
+
+    function startAutoplay() {
+      autoplay = setInterval(() => goTo(currentSlide + 1), 4000);
+    }
+    function stopAutoplay() { clearInterval(autoplay); }
+
+    startAutoplay();
+    document.getElementById('carousel').addEventListener('mouseenter', stopAutoplay);
+    document.getElementById('carousel').addEventListener('mouseleave', startAutoplay);
+
+    // ---- Contact form ----
+    document.getElementById('submit-btn').addEventListener('click', () => {
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+      const errorDiv = document.getElementById('form-error');
+
+      if (!name || !phone || !message) {
+        errorDiv.textContent = 'Please fill in all required fields.';
+        errorDiv.classList.remove('hidden');
+        return;
+      }
+      errorDiv.classList.add('hidden');
+
+      // Show toast
+      const toast = document.getElementById('toast');
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateY(0)';
+      toast.style.pointerEvents = 'auto';
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+        toast.style.pointerEvents = 'none';
+      }, 3500);
+
+      // Clear form
+      document.getElementById('name').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('message').value = '';
+    });
+
+    // ---- Footer year ----
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
